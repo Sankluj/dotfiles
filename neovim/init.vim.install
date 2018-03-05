@@ -1,0 +1,29 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=/root/.config/nvim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Plugins
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'kien/ctrlp.vim'
+"Plugin 'pangloss/vim-javascript'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'morhetz/gruvbox'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'joshdick/onedark.vim'
+Plugin 'w0rp/ale'
+"Plugin 'valloric/youcompleteme'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'othree/yajs.vim'
+Plugin 'othree/es.next.syntax.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
