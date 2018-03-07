@@ -8,14 +8,21 @@ RUN apt-get update && \
       neovim \
       python-dev \
       python-pip \
-      git
+      git \
+      curl \
+      silversearcher-ag
+
+# Installing node 9.x
+RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
+RUN apt-get install -y nodejs
+# Installing eslint globally
+RUN npm install -g eslint eslint-plugin-prettier eslint-plugin-react
 
 RUN pip install --user neovim
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Create directories and add init files
-RUN mkdir /root/.config
 RUN mkdir /root/.config/nvim
 ADD . /root/.config/nvim
 
