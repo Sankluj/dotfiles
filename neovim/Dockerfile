@@ -24,7 +24,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Create directories and add init files
 RUN mkdir /root/.config/nvim
-ADD . /root/.config/nvim
+ADD ./init.vim.install /root/.config/nvim
 
 # Get Vundle
 RUN mkdir /root/.config/nvim/bundle
@@ -34,6 +34,7 @@ RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.config/nvim/bun
 RUN mv /root/.config/nvim/init.vim.install /root/.config/nvim/init.vim
 RUN nvim -c 'PluginInstall' -c 'qa!'
 # Concat the plugins configuration file to the init file
+ADD ./init.vim.final /root/.config/nvim
 RUN cat /root/.config/nvim/init.vim.final >> /root/.config/nvim/init.vim
 RUN rm /root/.config/nvim/init.vim.final
 
