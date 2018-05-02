@@ -8,9 +8,12 @@ RUN apt-get update && \
       neovim \
       python-dev \
       python-pip \
+      python3-dev \
       git \
       curl \
-      silversearcher-ag
+      silversearcher-ag \
+      build-essential \
+      cmake
 
 # Installing node 9.x
 RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
@@ -33,6 +36,7 @@ RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.config/nvim/bun
 # Install the plugins first
 RUN mv /root/.config/nvim/init.vim.install /root/.config/nvim/init.vim
 RUN nvim -c 'PluginInstall' -c 'qa!'
+RUN ./root/.vim/bundle/youcompleteme/install.py --js-completer
 # Concat the plugins configuration file to the init file
 ADD ./init.vim.final /root/.config/nvim
 RUN cat /root/.config/nvim/init.vim.final >> /root/.config/nvim/init.vim
