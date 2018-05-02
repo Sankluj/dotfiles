@@ -41,6 +41,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_section_z = ' %{strftime("%-I:%M %p")}'
 let g:airline_section_warning = ''
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'jsformatter'
 
 " -- NERDTree
 " Toggle Shortcut
@@ -83,6 +84,10 @@ let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
 
 " -- prettify
 noremap <F3> :Autoformat<CR>
+
+" -- YouCompleteMe
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
 
 " --- General Key Mappings ---
 " Move between splits
@@ -135,4 +140,4 @@ command -nargs=0 -bar Update if &modified
                            \|endif
 nnoremap <silent> <C-S> :<C-u>Update<CR>
 inoremap <c-s> <Esc>:Update<CR>
-nnoremap <C-w> :bp<bar>sp<bar>bn<bar>bd<CR>.
+nnoremap <C-w> :bp<bar>sp<bar>bn<bar>bd<CR>
