@@ -262,6 +262,7 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
     alias grbi='git rebase -i'
     alias grbc='git rebase --continue'
     alias gfix='git commit --fixup'
+    alias gac='git add -u && git commmit -m'
 
     alias gitdag='git log --graph --decorate --oneline'
     alias delete-merged="git branch --merged | grep -v '^.* master$' | grep -v '^.* develop' | xargs git branch -d"
@@ -288,11 +289,11 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
 
 #   OSX
     nvim () {
-      sudo docker run -it -v "$dir_name":/data:cached sankluj/neovim:latest
+      docker run -it -v "$PWD":/data:cached sankluj/neovim:latest
     }
 #   LINUX
 #     nvim () {
-#       sudo docker run -it -v "$dir_name":/data sankluj/neovim:latest
+#       sudo docker run -it -v "$PWD":/data sankluj/neovim:latest
 #     }
 
 #   ---------------------------------------
