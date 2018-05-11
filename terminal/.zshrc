@@ -60,6 +60,8 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  # Linux zsh-syntax-highlighting
+  # zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -122,4 +124,5 @@ setopt hist_verify
 setopt inc_append_history
 setopt share_history # share command history data
 
+# Sourcing zsh-syntax-highlighting on OSX
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
