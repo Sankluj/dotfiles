@@ -68,10 +68,11 @@ nmap <C-_> <leader>c<Space>
 vmap <C-_> <leader>c<Space>
 
 " -- closetag
-" filenames like *.xml, *.xhtml, ...
-" This will make the list of non closing tags self closing in the specified files.
-"
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.erb'
+let g:closetag_emptyTags_caseSensitive = 1
+let g:closetag_shortcut = '>'
+let g:closetag_close_shortcut = '<leader>>'
 
 " -- prettify
 noremap <F3> :Autoformat<CR>
