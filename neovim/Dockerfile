@@ -11,7 +11,6 @@ RUN apt-get update && \
       python3-dev \
       git \
       curl \
-      silversearcher-ag \
       build-essential \
       cmake
 
