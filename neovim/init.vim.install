@@ -17,37 +17,37 @@ Plugin 'vim-airline/vim-airline'
 " Git integration
 Plugin 'tpope/vim-fugitive'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'airblade/vim-gitgutter'
 
 " Default sane config
 Plugin 'tpope/vim-sensible'
 
 " Text manipulation helpers
 Plugin 'tpope/vim-surround'
-Plugin 'junegunn/rainbow_parentheses.vim'
+" Plugin 'luochen1990/rainbow'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'alvan/vim-closetag'
 Plugin 'Yggdroot/indentLine'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'joshdick/onedark.vim'
 
 " File Navigation
 Plugin 'kien/ctrlp.vim'
 
 " Editor Style
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'joshdick/onedark.vim'
+" Plugin 'altercation/vim-colors-solarized'
 Plugin 'morhetz/gruvbox'
-Plugin 'airblade/vim-gitgutter'
 
 " Lint
 Plugin 'w0rp/ale'
 Plugin 'Chiel92/vim-autoformat'
 
-" Autocompletion
-Plugin 'valloric/youcompleteme'
-
 " Syntax highlighting
 Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
+Plugin 'maxmellon/vim-jsx-pretty'
+
+" Autocompletion
+Plugin 'valloric/youcompleteme'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

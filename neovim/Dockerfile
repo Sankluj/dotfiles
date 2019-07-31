@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:19.04
 
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
@@ -15,7 +15,7 @@ RUN apt-get update && \
       cmake
 
 # Installing node 9.x
-RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs
 # Installing eslint globally
 RUN npm install -g eslint eslint-plugin-prettier eslint-plugin-react
@@ -35,7 +35,7 @@ RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.config/nvim/bun
 # Install the plugins first
 RUN mv /root/.config/nvim/init.vim.install /root/.config/nvim/init.vim
 RUN nvim -c 'PluginInstall' -c 'qa!'
-RUN ./root/.vim/bundle/youcompleteme/install.py --js-completer
+RUN ./root/.vim/bundle/youcompleteme/install.py --ts-completer
 # Concat the plugins configuration file to the init file
 ADD ./init.vim.final /root/.config/nvim
 RUN cat /root/.config/nvim/init.vim.final >> /root/.config/nvim/init.vim

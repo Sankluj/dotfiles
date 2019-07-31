@@ -4,7 +4,7 @@
 syntax enable
 "set background=dark
 "let g:solarized_termcolors=256
-colorscheme onedark
+colorscheme gruvbox
 set guifont=Menlo:h14
 set guioptions=
 set shiftwidth=2
@@ -78,8 +78,12 @@ let g:closetag_close_shortcut = '<leader>>'
 noremap <F3> :Autoformat<CR>
 
 " -- YouCompleteMe
-set completeopt-=preview
-let g:ycm_add_preview_to_completeopt = 0
+" set completeopt-=preview
+" let g:ycm_add_preview_to_completeopt = 0
+autocmd FileType javascript nmap <buffer> <C-]> :YcmCompleter GoTo<CR>
+
+" -- Rainbow
+" let g:rainbow_active = 1
 
 " --- General Key Mappings ---
 " Move between splits
