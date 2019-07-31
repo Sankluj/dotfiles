@@ -43,8 +43,7 @@ Plugin 'w0rp/ale'
 Plugin 'Chiel92/vim-autoformat'
 
 " Syntax highlighting
-Plugin 'pangloss/vim-javascript'
-Plugin 'maxmellon/vim-jsx-pretty'
+Plugin 'sheerun/vim-polyglot'
 
 " Autocompletion
 Plugin 'valloric/youcompleteme'
