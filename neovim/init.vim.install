@@ -39,7 +39,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'morhetz/gruvbox'
 
 " Lint
-Plugin 'w0rp/ale'
+Plugin 'dense-analysis/ale'
 Plugin 'Chiel92/vim-autoformat'
 
 " Syntax highlighting

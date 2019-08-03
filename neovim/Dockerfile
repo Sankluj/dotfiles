@@ -2,7 +2,7 @@ FROM ubuntu:19.04
 
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
-    add-apt-repository -y ppa:neovim-ppa/unstable && \
+    add-apt-repository -y ppa:neovim-ppa/stable && \
     apt-get update && \
     apt-get install -y \
       neovim \
@@ -14,15 +14,15 @@ RUN apt-get update && \
       build-essential \
       cmake
 
-# Installing node 9.x
+# Installing node
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs
+
+# Remove ppa and clean apt install files
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Installing eslint globally
 RUN npm install -g eslint eslint-plugin-prettier eslint-plugin-react
-
-RUN pip install --user neovim
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Create directories and add init files
 RUN mkdir /root/.config/nvim
