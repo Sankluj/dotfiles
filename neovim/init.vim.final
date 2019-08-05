@@ -56,8 +56,14 @@ let g:ale_linters = {
 \ 'javascript': ['eslint'],
 \ 'html': ['htmlhint']
 \}
+let g:ale_javascript_eslint_options = '--cache'
+let g:ale_fixers = {
+\ '*': ['prettier'],
+\ 'javascript': ['prettier', 'eslint']
+\}
 " .htmlhintrc file not working
 " let g:ale_html_htmlhint_options = '--config ~/.htmlhintrc --format=unix stdin'
+noremap <F3> :ALEFix<CR>
 
 " -- ctrlp
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
@@ -73,9 +79,6 @@ let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.erb'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
-
-" -- prettify
-noremap <F3> :Autoformat<CR>
 
 " -- YouCompleteMe
 " set completeopt-=preview

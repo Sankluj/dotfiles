@@ -40,7 +40,6 @@ Plugin 'morhetz/gruvbox'
 
 " Lint
 Plugin 'dense-analysis/ale'
-Plugin 'Chiel92/vim-autoformat'
 
 " Syntax highlighting
 Plugin 'sheerun/vim-polyglot'
