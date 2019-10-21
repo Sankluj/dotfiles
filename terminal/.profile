@@ -299,7 +299,19 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
 #   ---------------------------------------
 #   tmux
 #   ---------------------------------------
-    # alias tmux='TERM=screen-256color-bce tmux -u'
+#   alias tmux='TERM=screen-256color-bce tmux -u'
+    
+#   ---------------------------------------
+#   OSX rbenv
+#   ---------------------------------------
+#   export PATH=/Users/matthieukluj/.rbenv/shims:${PATH}
+
+#   ---------------------------------------
+#   shrink pdf - require ghostscript
+#   ---------------------------------------
+    shrink-pdf () {
+      /usr/local/bin/gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4  -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=$1 $2
+    }
 
 #   ---------------------------------------
 #   9.  REMINDERS & NOTES
