@@ -2,49 +2,63 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/home/sankluj/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" Plugins
+" --- Plugins ---
+
+" Navigation
 Plugin 'scrooloose/nerdtree'
+Plugin 'vim-airline/vim-airline'
+
+" Git integration
+Plugin 'tpope/vim-fugitive'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'kien/ctrlp.vim'
-"Plugin 'pangloss/vim-javascript'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'morhetz/gruvbox'
-Plugin 'scrooloose/nerdcommenter'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'joshdick/onedark.vim'
-Plugin 'w0rp/ale'
+
+" Default sane config
+Plugin 'tpope/vim-sensible'
+
+" Text manipulation helpers
+Plugin 'tpope/vim-surround'
+" Plugin 'luochen1990/rainbow'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'alvan/vim-closetag'
+Plugin 'Yggdroot/indentLine'
+Plugin 'scrooloose/nerdcommenter'
+
+" File Navigation
+Plugin 'kien/ctrlp.vim'
+
+" Editor Style
+" Plugin 'joshdick/onedark.vim'
+" Plugin 'altercation/vim-colors-solarized'
+Plugin 'morhetz/gruvbox'
+
+" Lint
+Plugin 'dense-analysis/ale'
+
+" Syntax highlighting
+Plugin 'sheerun/vim-polyglot'
+
+" Autocompletion
 Plugin 'valloric/youcompleteme'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'othree/yajs.vim'
-Plugin 'othree/es.next.syntax.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
 " --- Global Configuration ---
 
 syntax enable
-"set background=dark
-"let g:solarized_termcolors=256
-colorscheme onedark
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+set background=dark
+colorscheme gruvbox
 set guifont=Menlo:h14
 set guioptions=
 set shiftwidth=2
@@ -54,8 +68,25 @@ set number
 autocmd BufWritePre * %s/\s\+$//e
 set splitbelow
 set splitright
+set hidden
+
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 " --- Plugins Configuration ---
+
+" -- Airline
+let g:airline_powerline_fonts = 1
+let g:airline_section_z = ' %{strftime("%-I:%M %p")}'
+let g:airline_section_warning = ''
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'jsformatter'
 
 " -- NERDTree
 " Toggle Shortcut
@@ -72,16 +103,22 @@ set mouse=a
 let g:NERDTreeMouseMode=3
 
 " -- Syntax Highlighting
-let g:used_javascript_libs = 'angularjs,angularuirouter'
+let g:used_javascript_libs = 'react'
 
 " -- Ale
 let g:ale_linters = {
 \ 'javascript': ['eslint'],
-\ 'scss': ['sasslint'],
 \ 'html': ['htmlhint']
+\}
+let g:ale_javascript_eslint_executable='npx eslint'
+let g:ale_javascript_eslint_options = '--cache'
+let g:ale_fixers = {
+\ '*': ['prettier'],
+\ 'javascript': ['prettier', 'eslint']
 \}
 " .htmlhintrc file not working
 " let g:ale_html_htmlhint_options = '--config ~/.htmlhintrc --format=unix stdin'
+noremap <F3> :ALEFix<CR>
 
 " -- ctrlp
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
@@ -90,6 +127,21 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 " -- NERDCommenter
 nmap <C-_> <leader>c<Space>
 vmap <C-_> <leader>c<Space>
+
+" -- closetag
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.erb'
+let g:closetag_emptyTags_caseSensitive = 1
+let g:closetag_shortcut = '>'
+let g:closetag_close_shortcut = '<leader>>'
+
+" -- YouCompleteMe
+" set completeopt-=preview
+" let g:ycm_add_preview_to_completeopt = 0
+autocmd FileType javascript nmap <buffer> <C-]> :YcmCompleter GoTo<CR>
+
+" -- Rainbow
+" let g:rainbow_active = 1
 
 " --- General Key Mappings ---
 " Move between splits
@@ -100,14 +152,46 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Move between buffers
+nnoremap <esc>l :bn<CR>
+nnoremap <esc>h :bp<CR>
+nnoremap ¬ :bn<CR>
+nnoremap ˙ :bp<CR>
+
 " Move lines Up and Down
+nnoremap <esc>j :m .+1<CR>==
+nnoremap <esc>k :m .-2<CR>==
+"inoremap <esc>j <Esc>:m .+1<CR>==gi
+"inoremap <esc>k <Esc>:m .-2<CR>==gi
+"vnoremap <esc>j :m '>+1<CR>gv=gv
+"vnoremap <esc>k :m '<-2<CR>gv=gv
 nnoremap ∆ :m .+1<CR>==
 nnoremap ˚ :m .-2<CR>==
-inoremap ∆ <Esc>:m .+1<CR>==gi
-inoremap ˚ <Esc>:m .-2<CR>==gi
+"inoremap ∆ <Esc>:m .+1<CR>==gi
+"inoremap ˚ <Esc>:m .-2<CR>==gi
 vnoremap ∆ :m '>+1<CR>gv=gv
 vnoremap ˚ :m '<-2<CR>gv=gv
 
 " Tab navigation
 map <S-A-Right> :tabn<CR>
 map <S-A-Left>  :tabp<CR>
+
+" Use tab for indenting in visual mode
+vnoremap <Tab> >gv|
+vnoremap <S-Tab> <gv
+nnoremap > >>_
+nnoremap < <<_
+
+" File Manipulation
+" If the current buffer has never been saved, it will have no name,
+" call the file browser to save it, otherwise just save it.
+command -nargs=0 -bar Update if &modified
+                           \|    if empty(bufname('%'))
+                           \|        browse confirm write
+                           \|    else
+                           \|        confirm write
+                           \|    endif
+                           \|endif
+nnoremap <silent> <C-S> :<C-u>Update<CR>
+inoremap <c-s> <Esc>:Update<CR>
+nnoremap <C-w> :bp<bar>sp<bar>bn<bar>bd<CR>

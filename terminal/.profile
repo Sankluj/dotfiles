@@ -262,7 +262,7 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
     alias grbi='git rebase -i'
     alias grbc='git rebase --continue'
     alias gfix='git commit --fixup'
-    alias gac='git add -u && git commmit -m'
+    alias gac='git add -u && git commit -m'
 
     alias gitdag='git log --graph --decorate --oneline'
     alias delete-merged="git branch --merged | grep -v '^.* master$' | grep -v '^.* develop' | xargs git branch -d"
