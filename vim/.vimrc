@@ -89,9 +89,6 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'jsformatter'
 
 " -- NERDTree
-" Toggle Shortcut
-map <C-n> :NERDTreeToggle<CR>
-map <C-b> :NERDTreeFind<CR>
 " Open automatically when no files is specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -118,19 +115,14 @@ let g:ale_fixers = {
 \}
 " .htmlhintrc file not working
 " let g:ale_html_htmlhint_options = '--config ~/.htmlhintrc --format=unix stdin'
-noremap <F3> :ALEFix<CR>
 
 " -- ctrlp
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-" -- NERDCommenter
-nmap <C-_> <leader>c<Space>
-vmap <C-_> <leader>c<Space>
-
 " -- closetag
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx"
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.erb'
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.js"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js,*.erb'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
@@ -138,12 +130,23 @@ let g:closetag_close_shortcut = '<leader>>'
 " -- YouCompleteMe
 " set completeopt-=preview
 " let g:ycm_add_preview_to_completeopt = 0
-autocmd FileType javascript nmap <buffer> <C-]> :YcmCompleter GoTo<CR>
 
 " -- Rainbow
 " let g:rainbow_active = 1
 
 " --- General Key Mappings ---
+let mapleader = ";"
+noremap <leader>l :ALEFix<CR>
+noremap <leader>w :w<CR>
+noremap <leader>n :NERDTreeToggle<CR>
+noremap <leader>f :NERDTreeFind<CR>
+noremap <leader>p :CtrlP<CR>
+noremap <leader>b :CtrlPBuffer<CR>
+autocmd FileType javascript nnoremap <buffer> <leader>g :YcmCompleter GoTo<CR>
+" Move between buffers
+nnoremap <leader>] :bn<CR>
+nnoremap <leader>[ :bp<CR>
+
 " Move between splits
 nnoremap <Tab> <c-w>w
 nnoremap <bs> <c-w>W
@@ -152,29 +155,11 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Move between buffers
-nnoremap <esc>l :bn<CR>
-nnoremap <esc>h :bp<CR>
-nnoremap ¬ :bn<CR>
-nnoremap ˙ :bp<CR>
-
 " Move lines Up and Down
-nnoremap <esc>j :m .+1<CR>==
-nnoremap <esc>k :m .-2<CR>==
-"inoremap <esc>j <Esc>:m .+1<CR>==gi
-"inoremap <esc>k <Esc>:m .-2<CR>==gi
-"vnoremap <esc>j :m '>+1<CR>gv=gv
-"vnoremap <esc>k :m '<-2<CR>gv=gv
-nnoremap ∆ :m .+1<CR>==
-nnoremap ˚ :m .-2<CR>==
-"inoremap ∆ <Esc>:m .+1<CR>==gi
-"inoremap ˚ <Esc>:m .-2<CR>==gi
-vnoremap ∆ :m '>+1<CR>gv=gv
-vnoremap ˚ :m '<-2<CR>gv=gv
-
-" Tab navigation
-map <S-A-Right> :tabn<CR>
-map <S-A-Left>  :tabp<CR>
+nnoremap <DOWN> :m .+1<CR>==
+nnoremap <UP> :m .-2<CR>==
+vnoremap <DOWN> :m '>+1<CR>gv=gv
+vnoremap <UP> :m '<-2<CR>gv=gv
 
 " Use tab for indenting in visual mode
 vnoremap <Tab> >gv|
