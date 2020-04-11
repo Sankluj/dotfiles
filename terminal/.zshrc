@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/[ENTER_USERNAME_HERE]/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -95,7 +95,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-DEFAULT_USER='ENTER_USERNAME_HERE'
+DEFAULT_USER=$USER
 
 [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
 
@@ -125,4 +125,4 @@ setopt inc_append_history
 setopt share_history # share command history data
 
 # Sourcing zsh-syntax-highlighting on OSX
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

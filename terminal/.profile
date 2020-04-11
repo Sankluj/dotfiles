@@ -288,19 +288,14 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
 #   NeoVim
 #   ---------------------------------------
 
-#   OSX
     nvim () {
-      docker run -it -v "$PWD":/data:cached sankluj/neovim:latest
+      docker run -it -v "$PWD":/data sankluj/neovim:latest
     }
-#   LINUX
-#     nvim () {
-#       sudo docker run -it -v "$PWD":/data sankluj/neovim:latest
-#     }
 
 #   ---------------------------------------
 #   tmux
 #   ---------------------------------------
-#   alias tmux='TERM=screen-256color-bce tmux -u'
+#   alias tmux='TERM=xterm-256color-bce tmux -u'
 
 #   ---------------------------------------
 #   OSX rbenv
