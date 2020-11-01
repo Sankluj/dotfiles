@@ -1,4 +1,6 @@
 set nocompatible              " be iMproved, required
+set ignorecase
+set smartcase
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
