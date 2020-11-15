@@ -1,6 +1,4 @@
 set nocompatible              " be iMproved, required
-set ignorecase
-set smartcase
 filetype off                  " required
 
 set ignorecase
@@ -116,9 +114,9 @@ let g:ale_linters = {
 let g:ale_javascript_eslint_executable='npx eslint'
 let g:ale_javascript_eslint_options = '--cache'
 let g:ale_fixers = {
-\ '*': ['prettier'],
 \ 'javascript': ['prettier', 'eslint'],
-\ 'go': ['gofmt']
+\ 'go': ['gofmt'],
+\ '*': ['prettier']
 \}
 " .htmlhintrc file not working
 " let g:ale_html_htmlhint_options = '--config ~/.htmlhintrc --format=unix stdin'
@@ -137,6 +135,7 @@ let g:closetag_close_shortcut = '<leader>>'
 " -- YouCompleteMe
 " set completeopt-=preview
 " let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " -- Rainbow
 " let g:rainbow_active = 1
