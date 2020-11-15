@@ -272,6 +272,7 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
 #   ---------------------------------------
 #   Docker aliases
 #   ---------------------------------------
+    alias docker='sudo docker'
     alias dc='docker-compose'
     alias docker-clean-images='docker rmi $(docker images -a --filter=dangling=true -q)'
     alias docker-remove-images='docker rmi $(docker images -q)'
@@ -300,7 +301,7 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
 #   tmux
 #   ---------------------------------------
 #   alias tmux='TERM=screen-256color-bce tmux -u'
-    
+
 #   ---------------------------------------
 #   OSX rbenv
 #   ---------------------------------------

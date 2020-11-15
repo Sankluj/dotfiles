@@ -3,6 +3,9 @@ set ignorecase
 set smartcase
 filetype off                  " required
 
+set ignorecase
+set smartcase
+
 " set the runtime path to include Vundle and initialize
 set rtp+=/home/sankluj/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -105,6 +108,7 @@ let g:NERDTreeMouseMode=3
 let g:used_javascript_libs = 'react'
 
 " -- Ale
+let g:ale_fix_on_save = 1
 let g:ale_linters = {
 \ 'javascript': ['eslint'],
 \ 'html': ['htmlhint']
@@ -114,6 +118,7 @@ let g:ale_javascript_eslint_options = '--cache'
 let g:ale_fixers = {
 \ '*': ['prettier'],
 \ 'javascript': ['prettier', 'eslint']
+\ 'go': ['gofmt']
 \}
 " .htmlhintrc file not working
 " let g:ale_html_htmlhint_options = '--config ~/.htmlhintrc --format=unix stdin'
