@@ -1,7 +1,8 @@
 set nocompatible              " be iMproved, required
+filetype off                  " required
+
 set ignorecase
 set smartcase
-filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=/root/.config/nvim/bundle/Vundle.vim
