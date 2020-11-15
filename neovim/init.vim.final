@@ -59,7 +59,7 @@ let g:ale_javascript_eslint_executable='npx eslint'
 let g:ale_javascript_eslint_options = '--cache'
 let g:ale_fixers = {
 \ '*': ['prettier'],
-\ 'javascript': ['prettier', 'eslint']
+\ 'javascript': ['prettier', 'eslint'],
 \ 'go': ['gofmt']
 \}
 " .htmlhintrc file not working
