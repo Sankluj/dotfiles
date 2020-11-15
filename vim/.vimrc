@@ -3,9 +3,6 @@ set ignorecase
 set smartcase
 filetype off                  " required
 
-set ignorecase
-set smartcase
-
 " set the runtime path to include Vundle and initialize
 set rtp+=/home/sankluj/.vim/bundle/Vundle.vim
 call vundle#begin()
