@@ -5,7 +5,7 @@ set ignorecase
 set smartcase
 
 " set the runtime path to include Vundle and initialize
-set rtp+=/home/sankluj/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle, required
