@@ -19,28 +19,28 @@ RUN apt-get install -y nodejs
 # Remove ppa and clean apt install files
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Installing eslint globally
-RUN npm install -g eslint eslint-plugin-prettier eslint-plugin-react
+# Create a user
+RUN useradd -ms /bin/bash newuser
+USER newuser
+WORKDIR /home/newuser
 
 # Create directories and add init files
-RUN mkdir /root/.config/nvim
-ADD ./init.vim.install /root/.config/nvim
+RUN mkdir -p ~/.config/nvim
 
 # Get Vundle
-RUN mkdir /root/.config/nvim/bundle
-RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.config/nvim/bundle/Vundle.vim
+RUN mkdir ~/.config/nvim/bundle
+RUN git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
 
 # Install the plugins first
-RUN mv /root/.config/nvim/init.vim.install /root/.config/nvim/init.vim
+ADD --chown=newuser ./init.vim.install .config/nvim/init.vim
 RUN nvim -c 'PluginInstall' -c 'qa!'
-RUN ./root/.vim/bundle/youcompleteme/install.py --ts-completer
+RUN ~/.vim/bundle/youcompleteme/install.py --ts-completer
 # Concat the plugins configuration file to the init file
-ADD ./init.vim.final /root/.config/nvim
-RUN cat /root/.config/nvim/init.vim.final >> /root/.config/nvim/init.vim
-RUN rm /root/.config/nvim/init.vim.final
+ADD --chown=newuser ./init.vim.final .config/nvim
+RUN cat ~/.config/nvim/init.vim.final >> ~/.config/nvim/init.vim
+RUN rm ~/.config/nvim/init.vim.final
 
-# Define working directory.
+# Define default work directory
 WORKDIR /data
-
 # Define default command.
 ENTRYPOINT [ "nvim" ]
