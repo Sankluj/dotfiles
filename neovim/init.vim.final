@@ -58,6 +58,7 @@ let g:ale_linters = {
 let g:ale_javascript_eslint_executable='npx eslint'
 let g:ale_javascript_eslint_options = '--cache'
 let g:ale_fixers = {
+\ 'javascriptreact': ['prettier', 'eslint'],
 \ 'javascript': ['prettier', 'eslint'],
 \ 'go': ['gofmt'],
 \ '*': ['prettier']
