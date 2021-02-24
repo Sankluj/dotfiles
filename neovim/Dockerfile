@@ -3,6 +3,7 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
     add-apt-repository -y ppa:neovim-ppa/stable && \
+    add-apt-repository -y ppa:longsleep/golang-backports && \
     apt-get update && \
     apt-get install -y \
       neovim \
@@ -10,7 +11,8 @@ RUN apt-get update && \
       git \
       curl \
       build-essential \
-      cmake
+      cmake \
+      golang-go
 
 # Installing node
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
@@ -33,6 +35,7 @@ RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.config/nvim/bun
 # Install the plugins first
 RUN mv /root/.config/nvim/init.vim.install /root/.config/nvim/init.vim
 RUN nvim -c 'PluginInstall' -c 'qa!'
+RUN nvim -c 'GoInstallBinaries' -c 'qa!'
 RUN ./root/.vim/bundle/youcompleteme/install.py --ts-completer
 # Concat the plugins configuration file to the init file
 ADD ./init.vim.final /root/.config/nvim

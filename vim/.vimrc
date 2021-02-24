@@ -50,6 +50,9 @@ Plugin 'sheerun/vim-polyglot'
 " Autocompletion
 Plugin 'valloric/youcompleteme'
 
+" golang
+Plugin 'fatih/vim-go'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -116,14 +119,14 @@ let g:ale_javascript_eslint_options = '--cache'
 let g:ale_fixers = {
 \ 'javascriptreact': ['prettier', 'eslint'],
 \ 'javascript': ['prettier', 'eslint'],
-\ 'go': ['gofmt'],
+\ 'typescript': ['prettier', 'eslint'],
 \ '*': ['prettier']
 \}
 " .htmlhintrc file not working
 " let g:ale_html_htmlhint_options = '--config ~/.htmlhintrc --format=unix stdin'
 
 " -- ctrlp
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*/dist/*
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 " -- closetag
@@ -141,15 +144,33 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 " -- Rainbow
 " let g:rainbow_active = 1
 
+" Golang
+let g:go_fmt_command = "goimports"
+
 " --- General Key Mappings ---
+"  K => open man or doc if override exists
 let mapleader = ";"
-noremap <leader>l :ALEFix<CR>
 noremap <leader>w :w<CR>
+noremap <leader>q :q<CR>
+noremap <leader>l :ALEFix<CR>
 noremap <leader>n :NERDTreeToggle<CR>
 noremap <leader>f :NERDTreeFind<CR>
 noremap <leader>p :CtrlP<CR>
 noremap <leader>b :CtrlPBuffer<CR>
-autocmd FileType javascript nnoremap <buffer> <leader>g :YcmCompleter GoTo<CR>
+" JS Key Mappings
+autocmd FileType javascript,javascriptreact nnoremap <buffer> <leader>g :YcmCompleter GoTo<CR>
+" Golang Key Mappings
+" [[ and ]] to navigate between functions
+" if and af to select inner and outer function
+autocmd FileType go nmap gb  <Plug>(go-build)
+autocmd FileType go nmap gr  <Plug>(go-run)
+autocmd FileType go nmap gt  <Plug>(go-test)
+autocmd FileType go nmap gft  <Plug>(go-test-func)
+autocmd FileType go nmap gc <Plug>(go-coverage-toggle)
+autocmd FileType go nmap ga :GoAlternate<CR>
+autocmd FileType go nmap <leader>l :GoFmt<CR>
+autocmd FileType go nmap <leader>o :GoDeclsDir<CR>
+autocmd FileType go nmap <leader>g :GoDef<CR>
 " Move between buffers
 nnoremap <leader>] :bn<CR>
 nnoremap <leader>[ :bp<CR>
