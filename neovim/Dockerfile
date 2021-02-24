@@ -36,7 +36,7 @@ RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.config/nvim/bun
 RUN mv /root/.config/nvim/init.vim.install /root/.config/nvim/init.vim
 RUN nvim -c 'PluginInstall' -c 'qa!'
 RUN nvim -c 'GoInstallBinaries' -c 'qa!'
-RUN ./root/.vim/bundle/youcompleteme/install.py --ts-completer
+RUN ./root/.vim/bundle/youcompleteme/install.py --ts-completer --go-completer
 # Concat the plugins configuration file to the init file
 ADD ./init.vim.final /root/.config/nvim
 RUN cat /root/.config/nvim/init.vim.final >> /root/.config/nvim/init.vim
@@ -44,6 +44,9 @@ RUN rm /root/.config/nvim/init.vim.final
 
 # Define working directory.
 WORKDIR /data
+
+# Setting Path
+ENV PATH="/root/go/bin:${PATH}"
 
 # Define default command.
 ENTRYPOINT [ "nvim" ]

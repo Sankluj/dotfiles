@@ -16,6 +16,7 @@ autocmd BufWritePre * %s/\s\+$//e
 set splitbelow
 set splitright
 set hidden
+set hlsearch
 
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
@@ -51,16 +52,17 @@ let g:used_javascript_libs = 'react'
 
 " -- Ale
 let g:ale_fix_on_save = 1
-let g:ale_linters = {
-\ 'javascript': ['eslint'],
-\ 'html': ['htmlhint']
-\}
+"let g:ale_linters = {
+"\ 'javascript': ['eslint'],
+"\ 'html': ['htmlhint']
+"\}
 let g:ale_javascript_eslint_executable='npx eslint'
 let g:ale_javascript_eslint_options = '--cache'
 let g:ale_fixers = {
 \ 'javascriptreact': ['prettier', 'eslint'],
 \ 'javascript': ['prettier', 'eslint'],
 \ 'typescript': ['prettier', 'eslint'],
+\ 'go': ['goimports'],
 \ '*': ['prettier']
 \}
 " .htmlhintrc file not working
@@ -87,6 +89,7 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " Golang
 let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 0
 
 " --- General Key Mappings ---
 "  K => open man or doc if override exists
@@ -109,9 +112,8 @@ autocmd FileType go nmap gt  <Plug>(go-test)
 autocmd FileType go nmap gft  <Plug>(go-test-func)
 autocmd FileType go nmap gc <Plug>(go-coverage-toggle)
 autocmd FileType go nmap ga :GoAlternate<CR>
-autocmd FileType go nmap <leader>l :GoFmt<CR>
 autocmd FileType go nmap <leader>o :GoDeclsDir<CR>
-autocmd FileType go nmap <leader>g :GoDef<CR>
+autocmd FileType go nmap <buffer> <leader>g :GoDef<CR>
 " Move between buffers
 nnoremap <leader>] :bn<CR>
 nnoremap <leader>[ :bp<CR>
