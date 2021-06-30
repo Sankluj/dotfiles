@@ -117,10 +117,13 @@ let g:ale_fix_on_save = 1
 "\}
 let g:ale_javascript_eslint_executable='npx eslint'
 let g:ale_javascript_eslint_options = '--cache'
+let g:ale_typescript_eslint_executable='npx eslint'
+let g:ale_typescript_eslint_options = '--cache'
 let g:ale_fixers = {
 \ 'javascriptreact': ['prettier', 'eslint'],
 \ 'javascript': ['prettier', 'eslint'],
 \ 'typescript': ['prettier', 'eslint'],
+\ 'typescriptreact': ['prettier', 'eslint'],
 \ 'go': ['goimports'],
 \ '*': ['prettier']
 \}
@@ -160,8 +163,10 @@ noremap <leader>n :NERDTreeToggle<CR>
 noremap <leader>f :NERDTreeFind<CR>
 noremap <leader>p :CtrlP<CR>
 noremap <leader>b :CtrlPBuffer<CR>
+noremap <leader>d :ALEDetail<CR>
 " JS Key Mappings
-autocmd FileType javascript,javascriptreact nnoremap <buffer> <leader>g :YcmCompleter GoTo<CR>
+autocmd FileType typescript,typescriptreact,javascript,javascriptreact nnoremap <buffer> <leader>g :YcmCompleter GoTo<CR>
+autocmd FileType typescript,typescriptreact,javascript,javascriptreact nmap <leader>D <plug>(YCMHover)
 " Golang Key Mappings
 " [[ and ]] to navigate between functions
 " if and af to select inner and outer function
