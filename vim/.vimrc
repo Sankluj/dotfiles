@@ -1,67 +1,51 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set ignorecase
-set smartcase
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
 " --- Plugins ---
+call plug#begin('~/.vim/plugged')
 
 " Navigation
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdtree'
+Plug 'vim-airline/vim-airline'
 
 " Git integration
-Plugin 'tpope/vim-fugitive'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
 
 " Default sane config
-Plugin 'tpope/vim-sensible'
+Plug 'tpope/vim-sensible'
 
 " Text manipulation helpers
-Plugin 'tpope/vim-surround'
-" Plugin 'luochen1990/rainbow'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'alvan/vim-closetag'
-Plugin 'Yggdroot/indentLine'
-Plugin 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
+Plug 'alvan/vim-closetag'
+Plug 'Yggdroot/indentLine'
+Plug 'scrooloose/nerdcommenter'
 
 " File Navigation
-Plugin 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'           " Set up fzf and fzf.vim
 
 " Editor Style
-" Plugin 'joshdick/onedark.vim'
-" Plugin 'altercation/vim-colors-solarized'
-Plugin 'morhetz/gruvbox'
-
-" Lint
-Plugin 'dense-analysis/ale'
+Plug 'morhetz/gruvbox'
 
 " Syntax highlighting
-Plugin 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 
-" Autocompletion
-Plugin 'valloric/youcompleteme'
+" Lint & Autocompletion
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " golang
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()
 filetype plugin indent on    " required
 
 " --- Global Configuration ---
-
+set ignorecase
+set smartcase
 syntax enable
-"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 set background=dark
 colorscheme gruvbox
@@ -76,8 +60,9 @@ set splitbelow
 set splitright
 set hidden
 set hlsearch
+set mouse=a
 
-" Triger `autoread` when files changes on disk
+" Trigger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
@@ -103,70 +88,84 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 " For mouse click in NERDTree
-set mouse=a
 let g:NERDTreeMouseMode=3
 
 " -- Syntax Highlighting
 let g:used_javascript_libs = 'react'
 
-" -- Ale
-let g:ale_fix_on_save = 1
-"let g:ale_linters = {
-"\ 'javascript': ['eslint'],
-"\ 'html': ['htmlhint']
-"\}
-let g:ale_javascript_eslint_executable='npx eslint'
-let g:ale_javascript_eslint_options = '--cache'
-let g:ale_typescript_eslint_executable='npx eslint'
-let g:ale_typescript_eslint_options = '--cache'
-let g:ale_fixers = {
-\ 'javascriptreact': ['prettier', 'eslint'],
-\ 'javascript': ['prettier', 'eslint'],
-\ 'typescript': ['prettier', 'eslint'],
-\ 'typescriptreact': ['prettier', 'eslint'],
-\ 'go': ['goimports'],
-\ '*': ['prettier']
-\}
-" .htmlhintrc file not working
-" let g:ale_html_htmlhint_options = '--config ~/.htmlhintrc --format=unix stdin'
-
-" -- ctrlp
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*/dist/*
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-
 " -- closetag
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.js"
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js,*.erb'
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.js,*ts,*tsx"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js,*.erb,*ts,*tsx'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 
-" -- YouCompleteMe
-" set completeopt-=preview
-" let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_autoclose_preview_window_after_insertion = 1
+" -- CoC extensions
+let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-go']
 
-" -- Rainbow
-" let g:rainbow_active = 1
+" Add CoC Prettier if prettier is installed
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
 
-" Golang
+" Add CoC ESLint if ESLint is installed
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+
+" -- Golang
 let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 0
 
+" -- Doc display
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+" Highlight the symbol and its references when holding the cursor.
+"autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd CursorHold * silent call CocActionAsync('doHover')
+
 " --- General Key Mappings ---
-"  K => open man or doc if override exists
 let mapleader = ";"
 noremap <leader>w :w<CR>
 noremap <leader>q :q<CR>
-noremap <leader>l :ALEFix<CR>
 noremap <leader>n :NERDTreeToggle<CR>
 noremap <leader>f :NERDTreeFind<CR>
-noremap <leader>p :CtrlP<CR>
-noremap <leader>b :CtrlPBuffer<CR>
-noremap <leader>d :ALEDetail<CR>
-" JS Key Mappings
-autocmd FileType typescript,typescriptreact,javascript,javascriptreact nnoremap <buffer> <leader>g :YcmCompleter GoTo<CR>
-autocmd FileType typescript,typescriptreact,javascript,javascriptreact nmap <leader>D <plug>(YCMHover)
+noremap <leader>p :GFiles<CR>
+noremap <leader>b :Buffers<CR>
+noremap <leader>g :Ag<CR>
+noremap <silent><leader>d :call CocActionAsync('doHover')<CR>
+" Move between buffers
+nnoremap <leader>] :bn<CR>
+nnoremap <leader>[ :bp<CR>
+" Move between location list
+nnoremap <leader>) :lnext<CR>
+nnoremap <leader>( :lprev<CR>
+" Open Vim configuration file for editing
+nnoremap <silent><leader>2 :e ~/.vimrc<CR>
+" Source Vim configuration file and install plugins
+nnoremap <silent><leader>1 :source ~/.vimrc \| :PlugInstall<CR>
+" Coc
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>a <Plug>(coc-codeaction-selected)
+nmap <silent> <leader>ac <Plug>(coc-codeaction)
+
+" js/ts Key Mappings
+autocmd FileType typescript,typescriptreact,javascript,javascriptreact noremap <leader>l :CocCommand prettier.formatFile<CR>
+autocmd FileType typescript,typescriptreact,javascript,javascriptreact nmap <leader>rn <Plug>(coc-rename)
+autocmd FileType typescript,typescriptreact,javascript,javascriptreact nmap <silent> <leader>g <Plug>(coc-definition)
+autocmd FileType typescript,typescriptreact,javascript,javascriptreact nmap gr <Plug>(coc-references)
+
 " Golang Key Mappings
 " [[ and ]] to navigate between functions
 " if and af to select inner and outer function
@@ -178,9 +177,7 @@ autocmd FileType go nmap gc <Plug>(go-coverage-toggle)
 autocmd FileType go nmap ga :GoAlternate<CR>
 autocmd FileType go nmap <leader>o :GoDeclsDir<CR>
 autocmd FileType go nmap <buffer> <leader>g :GoDef<CR>
-" Move between buffers
-nnoremap <leader>] :bn<CR>
-nnoremap <leader>[ :bp<CR>
+autocmd FileType go nmap <buffer> <leader>rn :GoRename<CR>
 
 " Move between splits
 nnoremap <Tab> <c-w>w
