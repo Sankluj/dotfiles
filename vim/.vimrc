@@ -154,10 +154,10 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> <leader>a <Plug>(coc-codeaction-selected)
 nmap <silent> <leader>ac <Plug>(coc-codeaction)
 nmap <silent><leader>d :call CocActionAsync('doHover')<CR>
-nmap <silent>r <Plug>(coc-references)
+nmap <silent><leader>r <Plug>(coc-references)
 
 " js/ts Key Mappings
-noremap <leader>l :CocAction('format')<CR>
+noremap <silent><leader>l :call CocAction('format')<CR>
 autocmd FileType typescript,typescriptreact,javascript,javascriptreact nmap <leader>m <Plug>(coc-rename)
 autocmd FileType typescript,typescriptreact,javascript,javascriptreact nmap <silent> <leader>g <Plug>(coc-definition)
 
