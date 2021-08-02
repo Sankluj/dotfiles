@@ -19,7 +19,6 @@ Plug 'tpope/vim-sensible'
 " Text manipulation helpers
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
-Plug 'alvan/vim-closetag'
 Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdcommenter'
 
@@ -93,13 +92,6 @@ let g:NERDTreeMouseMode=3
 " -- Syntax Highlighting
 let g:used_javascript_libs = 'react'
 
-" -- closetag
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.js,*ts,*tsx"
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js,*.erb,*ts,*tsx'
-let g:closetag_emptyTags_caseSensitive = 1
-let g:closetag_shortcut = '>'
-let g:closetag_close_shortcut = '<leader>>'
-
 " -- CoC extensions
 let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-go']
 
@@ -142,29 +134,32 @@ noremap <leader>n :NERDTreeToggle<CR>
 noremap <leader>f :NERDTreeFind<CR>
 noremap <leader>p :GFiles<CR>
 noremap <leader>b :Buffers<CR>
-noremap <leader>g :Ag<CR>
-noremap <silent><leader>d :call CocActionAsync('doHover')<CR>
+noremap <leader>s :Ag<CR>
+noremap <leader>i :set invpaste paste?<CR>
 " Move between buffers
 nnoremap <leader>] :bn<CR>
 nnoremap <leader>[ :bp<CR>
 " Move between location list
 nnoremap <leader>) :lnext<CR>
 nnoremap <leader>( :lprev<CR>
+" Source Vim configuration file
+nnoremap <silent><leader>1 :source ~/.vimrc<CR>
 " Open Vim configuration file for editing
 nnoremap <silent><leader>2 :e ~/.vimrc<CR>
 " Source Vim configuration file and install plugins
-nnoremap <silent><leader>1 :source ~/.vimrc \| :PlugInstall<CR>
+nnoremap <silent><leader>3 :source ~/.vimrc \| :PlugInstall<CR>
 " Coc
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> <leader>a <Plug>(coc-codeaction-selected)
 nmap <silent> <leader>ac <Plug>(coc-codeaction)
+nmap <silent><leader>d :call CocActionAsync('doHover')<CR>
+nmap <silent>r <Plug>(coc-references)
 
 " js/ts Key Mappings
-autocmd FileType typescript,typescriptreact,javascript,javascriptreact noremap <leader>l :CocCommand prettier.formatFile<CR>
-autocmd FileType typescript,typescriptreact,javascript,javascriptreact nmap <leader>rn <Plug>(coc-rename)
+noremap <leader>l :CocAction('format')<CR>
+autocmd FileType typescript,typescriptreact,javascript,javascriptreact nmap <leader>m <Plug>(coc-rename)
 autocmd FileType typescript,typescriptreact,javascript,javascriptreact nmap <silent> <leader>g <Plug>(coc-definition)
-autocmd FileType typescript,typescriptreact,javascript,javascriptreact nmap gr <Plug>(coc-references)
 
 " Golang Key Mappings
 " [[ and ]] to navigate between functions
@@ -177,7 +172,7 @@ autocmd FileType go nmap gc <Plug>(go-coverage-toggle)
 autocmd FileType go nmap ga :GoAlternate<CR>
 autocmd FileType go nmap <leader>o :GoDeclsDir<CR>
 autocmd FileType go nmap <buffer> <leader>g :GoDef<CR>
-autocmd FileType go nmap <buffer> <leader>rn :GoRename<CR>
+autocmd FileType go nmap <buffer> <leader>m :GoRename<CR>
 
 " Move between splits
 nnoremap <Tab> <c-w>w

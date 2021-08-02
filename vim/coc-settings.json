@@ -1,5 +1,8 @@
 {
   "coc.preferences.formatOnSave": true,
-  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact"]
+  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact", "go"],
+  "eslint.autoFixOnSave": true,
+  "typescript.autoClosingTags": true,
+  "javascript.autoClosingTags": true
 }
 
